@@ -25,7 +25,7 @@ class HPbox{
 	}
 
 	render(div){
-		console.log("hp",this.dead); 
+		//console.log("hp",this.dead); 
 		if(!this.dead){
 			div.append(this.el);
 			return true;
@@ -106,7 +106,7 @@ class Creature{
 		Object.keys(that.limbs).forEach(function(limb){
 			var limbname = limb;
 			limb = that.limbs[limb];
-			console.log(limbname);
+			//console.log(limbname);
 			if(!limb.render(that.el) && (limbname === "head" || limbname === "torso")){
 				that.living = false;
 			}
@@ -182,4 +182,83 @@ function OREroller(numberdie){
 	}
 }
 
-console.log(OREroller(8));
+class SkillsObject{
+	constructor(){
+		var Body = {
+			Athletics:0,
+			Block: 0,
+			Brawl: 0,
+			Endurance: 0,
+			Weapon: 0
+		},
+		Coordination = {
+			Dodge: 0,
+			Drive: 0,
+			Lockpicking: 0,
+			Stealth: 0,
+			Weapon: 0
+		},
+		Sense = {
+			Empathy: 0,
+			Perception: 0,
+			Scrutiny: 0
+		},
+		Mind = {
+			First_Aid: 0,
+			Knowledge: 0,
+			Language: 0,
+			Medicine: 0,
+			Navigation: 0,
+			Research: 0,
+			Security_Systems: 0,
+			Streetwise:0,
+			Survival: 0,
+			Tactics: 0 
+		},
+		Charm = {
+			Lie: 0,
+			Perform: 0,
+			Persuasion: 0
+		},
+		Command = {
+			Interrogation: 0,
+			Intimidation: 0,
+			Leadership:0,
+			Stabiliy: 0
+		}
+
+		this.skills = {
+			Body: Body,
+			Coordination: Coordination,
+			Sense: Sense,
+			Mind: Mind,
+			Charm: Charm,
+			Command: Command
+		}
+	}
+
+	addSkills(obj){
+		var that = this;
+		Object.keys(obj).forEach(function(skill){
+			Object.keys(that.skills).forEach(function(attr){
+				var ind = Object.keys(that.skills[attr]).indexOf(skill);
+				if(ind !== -1){
+					that.skills[attr][skill] = obj[skill]
+				}
+			})
+		})
+		
+	}
+
+	returnSkills(){
+		return this.skills;
+	}
+
+	rollSkill(str){
+		return OREroller(this.skills[str])
+	}
+}
+
+var test = new SkillsObject;
+test.addSkills({"Interrogation":5,"Intimidation":6})
+console.log(test.skills)

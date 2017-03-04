@@ -5,19 +5,31 @@
   integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
   crossorigin="anonymous"></script>
 		<script src = "healthbox.js"></script>
+		<script src = "clientSideMusicPlayer.js"></script>
 	</head>
 	<body>
-		<div id="main">
-			<h3>Monsters</h3>
+			<div id="main">
+				<h3>Monsters</h3>
+			</div>
+		<div id = "container">
+			<div id = "npcs">
+				<h3>NPCs</h3>
+			</div>
+			<div id= "musicBox"></div>
 		</div>
-		<div id = "npcs">
-			<h3>NPCs</h3>
-		</div>
+		<style>
+			#container{
+				display: flex;
+				justify-content: space-between;
+			}
+			
+		</style>
 		<script>
 			var main = $("#main")
 			var OREmonsters = new OREEnemyTracker(main);
 			OREmonsters.addEnemy(5,10,8,"Policeman","Pistol",6,3);	
 			OREmonsters.addEnemy(5,10,8,"Ogre","Club",5,2);	
+			var music = new MusicPlayer($("#musicBox"));
 		</script>
 	</body>
 </html>
